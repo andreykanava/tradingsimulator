@@ -54,7 +54,15 @@ while True:
     for key in opened.keys():
         print(key, '->', opened[key])
     print('≈', musdbal, '$')
-
+    prices = requests.get('https://api.binance.com/api/v3/ticker/price').json()
+    price = get_price('ETHUSDT', prices)
+    print('ETHUSDT:', price)
+    prices = requests.get('https://api.binance.com/api/v3/ticker/price').json()
+    price = get_price('BTCUSDT', prices)
+    print('BTCUSDT:', price)
+    prices = requests.get('https://api.binance.com/api/v3/ticker/price').json()
+    price = get_price('BNBUSDT', prices)
+    print('BNBUSDT:', price)
     id = id + 1
     ch1 = input('1-open, 2-close: ')
     if ch1 == '1':
