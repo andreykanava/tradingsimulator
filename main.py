@@ -16,16 +16,6 @@ def get_price(symbol, prices):
 
 
 while True:
-    if usdbal < 0:
-        usdbal = 0
-    usdbal = round(usdbal, 2)
-    print('balance:', usdbal, '$')
-    print('opened deals:')
-    if opened == {}:
-        print('None')
-    for key in opened.keys():
-        print(key, '->', opened[key])
-
     for ch in opened.keys():
         openprice = opened[ch][0]
         symbol = opened[ch][1]
@@ -45,7 +35,6 @@ while True:
             profit = profit * -1
             musdbal = amount * profit + amount + usdbal
             musdbal = round(musdbal, 2)
-            print('≈', musdbal, '$')
         else:
             prices = requests.get('https://api.binance.com/api/v3/ticker/price').json()
             curprice = get_price(symbol, prices)
@@ -58,7 +47,13 @@ while True:
             profit = profit / 100
             musdbal = amount * profit + amount + usdbal
             musdbal = round(musdbal, 2)
-            print('≈', musdbal, '$')
+    if usdbal < 0:
+        usdbal = 0
+    usdbal = round(usdbal, 2)
+    print('balance:', usdbal, '$')
+    for key in opened.keys():
+        print(key, '->', opened[key])
+    print('≈', musdbal, '$')
 
     id = id + 1
     ch1 = input('1-open, 2-close: ')
@@ -108,7 +103,8 @@ while True:
                 print('Error. Try again.')
     if ch1 == '2':
         try:
-            print(opened)
+            for key in opened.keys():
+                print(key, '->', opened[key])
             ch = input('id: ')
             ch = int(ch)
             openprice = opened[ch][0]
