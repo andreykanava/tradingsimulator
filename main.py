@@ -47,6 +47,9 @@ while True:
             profit = profit / 100
             musdbal = amount * profit + amount + usdbal
             musdbal = round(musdbal, 2)
+    if musdbal <= 0:
+        prices.pop()
+
     if usdbal < 0:
         usdbal = 0
     usdbal = round(usdbal, 2)
